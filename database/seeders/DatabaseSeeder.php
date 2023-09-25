@@ -20,11 +20,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'John Doe'
         ]);
 
-        Post::factory(30)->create([
-            'user_id' => $user->id
-        ]);
+        Category::factory(5)->create();
 
-        //Category::factory(5)->findOrCreate();
-        
+        for ($x = 0; $x < 5; $x++) {
+            Post::factory(5)->create([
+                'user_id' => $user->id,
+                'category_id' => $x+1
+            ]);
+        }
+
     }
 }
