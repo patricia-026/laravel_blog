@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPostController;
 use App\Models\Post;
 use App\Models\User;
 use Mockery\Exception;
@@ -30,3 +31,7 @@ Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
+
+Route::middleware('can:admin')->group(function(){
+    Route::resource('admin/posts', AdminPostController::class)->except('show');
+});
